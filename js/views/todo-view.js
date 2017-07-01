@@ -19,6 +19,7 @@ var app = app || {};
 		events: {
 			'click .toggle': 'toggleCompleted',
 			'dblclick label': 'edit',
+			'click .edit-btn': 'edit',
 			'click .destroy': 'clear',
 			'keypress .edit': 'updateOnEnter',
 			'keydown .edit': 'revertOnEscape',
@@ -31,12 +32,14 @@ var app = app || {};
 		// convenience.
 		initialize: function () {
 			this.listenTo(this.model, 'change', this.render);
+            // this.listenTo(this.model, 'edit-btn', this.edit);
 			this.listenTo(this.model, 'destroy', this.remove);
 			this.listenTo(this.model, 'visible', this.toggleVisible);
 		},
 
 		// Re-render the titles of the todo item.
 		render: function () {
+			// Backbone LocalStorage is adding `id` attribute instantly after
 			// Backbone LocalStorage is adding `id` attribute instantly after
 			// creating a model.  This causes our TodoView to render twice. Once
 			// after creating a model and once on `id` change.  We want to
